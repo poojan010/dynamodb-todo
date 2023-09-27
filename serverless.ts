@@ -29,6 +29,7 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
     stage: '${opt:stage, "uat"}',
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+      STAGE: "${self:provider.stage}",
     },
     iamRoleStatements: [
       new Dynamodb()
