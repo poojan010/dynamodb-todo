@@ -4,7 +4,7 @@ import { ServerlessFrameworkConfiguration } from "serverless-schema";
 import env from "@lib/env";
 import MyResources from "src/resources";
 import { functions } from "@functions/index";
-import { DynamoDBTableNames } from "src/resources/constants";
+import { BucketNames, DynamoDBTableNames } from "src/resources/constants";
 
 const serverlessConfiguration: ServerlessFrameworkConfiguration = {
   service: "dynamodb-todo",
@@ -31,6 +31,9 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
     environment: {
       ...env,
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+    },
+    deploymentBucket: {
+      name: BucketNames.deploymentBucket,
     },
     iamRoleStatements: [
       new Dynamodb()
