@@ -30,6 +30,10 @@ jobs:
       - name: Install serverless dependency
         run: yarn install --frozen-lockfile
       - name: Package Functions
-        run: npx serverless package --stage $GITHUB_REF_NAME
+        run: npx serverless package
+        env:
+          STAGE: ${{ env.GITHUB_REF_SLUG }}
       - name: Deploy Functions - dev account
-        run: npx serverless deploy --stage $GITHUB_REF_NAME --package .serverless
+        run: npx serverless deploy --package .serverless
+        env:
+          STAGE: ${{ env.GITHUB_REF_SLUG }}

@@ -1,7 +1,9 @@
+import env from "@lib/env";
+
 export const BucketNames = {
-  MyS3Bucket: `my-graphics-s3-bucket${process.env.STAGE}`,
+  MyS3Bucket: `my-graphics-s3-bucket-${env.STAGE}`,
 };
 
 export const DynamoDBTableNames = {
-  MyDynamoDbTable: `my-dynamo-db-table${process.env.STAGE}`,
+  MyDynamoDbTable: `my-dynamo-db-table-${env.STAGE}`,
 };

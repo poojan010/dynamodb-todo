@@ -1,6 +1,7 @@
 import { Dynamodb, S3 } from "iam-floyd";
 import { ServerlessFrameworkConfiguration } from "serverless-schema";
 
+import env from "@lib/env";
 import MyResources from "src/resources";
 import { functions } from "@functions/index";
 import { DynamoDBTableNames } from "src/resources/constants";
@@ -14,7 +15,7 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
       minify: true,
       sourcemap: true,
     },
-    stage: "${opt:stage, self:provider.stage}",
+    stage: env.STAGE,
     stages: ["uat", "alpha", "prod"],
     prune: {
       automatic: true,
@@ -26,10 +27,10 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
     name: "aws",
     runtime: "nodejs16.x",
     region: "us-west-2",
-    stage: '${opt:stage, "uat"}',
+    stage: env.STAGE,
     environment: {
+      ...env,
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-      STAGE: "${self:provider.stage}",
     },
     iamRoleStatements: [
       new Dynamodb()
