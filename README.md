@@ -6,7 +6,7 @@ This project is used as inspiration and boilerplate for creating serverless fram
 
 - Uses ESBuild
 - Function version pruning
-- Automated Deployments with Github Actions
+- Automated Deployments and Pull Request Checks with Github Actions
 
 ### Project structure
 
