@@ -1,4 +1,4 @@
-# AWS Node.js Typescript Template for creating TS projects
+# AWS Node.js Typescript Project which covers Dynamo Db Crud Operations and S3 File Upload and Retrival
 
 This project is used as inspiration and boilerplate for creating serverless framework applications using typescript
 
