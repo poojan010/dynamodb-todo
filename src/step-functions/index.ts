@@ -40,7 +40,7 @@ export const MyStateMachine: AwsStateMachines = {
             States: {
               Operation: {
                 Type: "Task",
-                Resource: { "Fn::GetAtt": ["createCSVForDbEntries", "Arn"] },
+                Resource: { "Fn::GetAtt": ["performOperation", "Arn"] },
                 End: true,
               },
             },
