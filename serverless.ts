@@ -1,9 +1,10 @@
-import { Dynamodb, S3 } from "iam-floyd";
+import { Dynamodb, S3, States } from "iam-floyd";
 import { ServerlessFrameworkConfiguration } from "serverless-schema";
 
 import env from "@lib/env";
 import MyResources from "src/resources";
 import { functions } from "@functions/index";
+import { MyStateMachine } from "src/step-functions";
 import { BucketNames, DynamoDBTableNames } from "src/resources/constants";
 
 const serverlessConfiguration: ServerlessFrameworkConfiguration = {
@@ -22,7 +23,11 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
       number: 3,
     },
   },
-  plugins: ["serverless-esbuild", "serverless-prune-plugin"],
+  plugins: [
+    "serverless-esbuild",
+    "serverless-prune-plugin",
+    "serverless-step-functions",
+  ],
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
@@ -62,11 +67,21 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
           ]
         )
         .toJSON(),
+      new States()
+        .allow()
+        .toStartExecution()
+        .on(...["${self:resources.Outputs.MyStateMachineArn.Value}"])
+        .toJSON(),
     ],
   },
   functions,
   package: {
     individually: true,
+  },
+  stepFunctions: {
+    stateMachines: {
+      ...MyStateMachine,
+    },
   },
   resources: {
     Resources: MyResources,

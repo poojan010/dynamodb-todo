@@ -8,3 +8,5 @@ export const BucketNames = {
 export const DynamoDBTableNames = {
   MyDynamoDbTable: `my-dynamo-db-table-${env.STAGE}`,
 };
+
+export const tableEntriesFile = "table_entries.csv";

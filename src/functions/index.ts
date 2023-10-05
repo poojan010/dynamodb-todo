@@ -4,6 +4,9 @@ import putDataInTable from "./putDataInTable";
 import getAllFromTable from "./getAllFromTable";
 import updateItemInTable from "./updateItemInTable";
 import deleteItemFromTable from "./deleteItemFromTable";
+import invokeStepFn from "./invokeStepFn";
+import performOperation from "./performOperation";
+import createCSVForDbEntries from "./createCSVForDbEntries";
 
 export const functions = {
   sortByDate,
@@ -12,4 +15,7 @@ export const functions = {
   getAllFromTable,
   updateItemInTable,
   deleteItemFromTable,
+  invokeStepFn,
+  performOperation,
+  createCSVForDbEntries,
 };
