@@ -10,7 +10,7 @@ export const MyStateMachine: AwsStateMachines = {
   MyStateMachine: {
     name: stateMachineName,
     definition: {
-      StartAt: "",
+      StartAt: "CreateCSVForDbEntries",
       States: {
         CreateCSVForDbEntries: {
           Type: "Task",
