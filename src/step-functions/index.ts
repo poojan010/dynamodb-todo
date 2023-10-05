@@ -50,9 +50,6 @@ export const MyStateMachine: AwsStateMachines = {
         Done: {
           Type: "Succeed",
         },
-        Fail: {
-          Type: "Fail",
-        },
       },
     },
   },
