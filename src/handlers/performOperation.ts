@@ -17,9 +17,9 @@ export const handler = async (event: any): Promise<any> => {
       Key: {
         taskId: event.taskId,
       },
-      UpdateExpression: "set status = :status",
+      UpdateExpression: "set description = :descr",
       ExpressionAttributeValues: {
-        ":status": newDescription,
+        ":descr": newDescription,
       },
       ReturnValues: "ALL_NEW",
     });
@@ -30,6 +30,6 @@ export const handler = async (event: any): Promise<any> => {
       ...tableResponse,
     };
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
