@@ -4,7 +4,7 @@ import { ServerlessFrameworkConfiguration } from "serverless-schema";
 import env from "@lib/env";
 import MyResources from "src/resources";
 import { functions } from "@functions/index";
-import { MyStateMachine } from "src/step-functions";
+import { MyStateMachine, STATE_MACHINE_ARN } from "src/step-functions";
 import { BucketNames, DynamoDBTableNames } from "src/resources/constants";
 
 const serverlessConfiguration: ServerlessFrameworkConfiguration = {
@@ -70,7 +70,7 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
       new States()
         .allow()
         .toStartExecution()
-        .on(...["${self:resources.Outputs.MyStateMachineArn.Value}"])
+        .on(...[STATE_MACHINE_ARN])
         .toJSON(),
     ],
   },

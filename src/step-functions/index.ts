@@ -3,6 +3,8 @@ import { AwsStateMachines } from "serverless-schema";
 import { BucketNames, tableEntriesFile } from "src/resources/constants";
 
 const stateMachineName = `my-state-machine-${env.STAGE}`;
+// eslint-disable-next-line max-len
+export const STATE_MACHINE_ARN = `arn:aws:states:ap-south-1:${env.AWS_ACCOUNT_ID}:stateMachine:my-state-machine--${env.STAGE}`;
 
 export const MyStateMachine: AwsStateMachines = {
   MyStateMachine: {
