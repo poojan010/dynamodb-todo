@@ -55,6 +55,10 @@ export const MyStateMachine: AwsStateMachines = {
     events: [
       {
         eventBridge: {
+          event: {
+            source: "Schedule source",
+            "detail-type": "Invoke Step fn",
+          },
           //@ts-ignore
           schedule: "rate(10 minutes)",
         },
