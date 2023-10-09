@@ -26,8 +26,8 @@ export const MyStateMachine: AwsStateMachines = {
               CSVHeaderLocation: "FIRST_ROW",
             },
             Parameters: {
-              Bucket: "$.bucketName",
-              Key: "$.key",
+              "Bucket.$": "$.bucketName",
+              "Key.$": "$.key",
             },
           },
           ItemProcessor: {
