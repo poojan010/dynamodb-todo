@@ -1,6 +1,5 @@
 import env from "@lib/env";
 import { AwsStateMachines } from "serverless-schema";
-import { BucketNames, tableEntriesFile } from "src/resources/constants";
 
 const stateMachineName = `my-state-machine-${env.STAGE}`;
 // eslint-disable-next-line max-len
@@ -27,11 +26,10 @@ export const MyStateMachine: AwsStateMachines = {
               CSVHeaderLocation: "FIRST_ROW",
             },
             Parameters: {
-              Bucket: BucketNames.MyS3Bucket,
-              Key: tableEntriesFile,
+              Bucket: "$.bucketName",
+              Key: "$.key",
             },
           },
-          Label: "MyMap",
           ItemProcessor: {
             ProcessorConfig: {
               Mode: "DISTRIBUTED",

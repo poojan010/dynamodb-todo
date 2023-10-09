@@ -22,6 +22,11 @@ export const handler = async (): Promise<any> => {
     const bufferData = await readFile(csvPath);
 
     await uploadFile(BucketNames.MyS3Bucket, tableEntriesFile, bufferData);
+
+    return {
+      bucketName: BucketNames.MyS3Bucket,
+      key: tableEntriesFile,
+    };
   } catch (error) {
     console.log(error);
   }
