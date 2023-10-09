@@ -52,5 +52,10 @@ export const MyStateMachine: AwsStateMachines = {
         },
       },
     },
+    events: [
+      {
+        schedule: "cron(0 12 * * ? *)",
+      },
+    ],
   },
 };
