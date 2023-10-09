@@ -40,7 +40,13 @@ export const MyStateMachine: AwsStateMachines = {
             States: {
               Operation: {
                 Type: "Task",
-                Resource: { "Fn::GetAtt": ["performOperation", "Arn"] },
+                // Resource: { "Fn::GetAtt": ["performOperation", "Arn"] },
+                Resource: {
+                  // eslint-disable-next-line max-len
+                  "Fn::Sub":
+                    // eslint-disable-next-line max-len
+                    "arn:aws:lambda:${AWS::Region}:${env.AWS_ACCOUNT_ID}:function/performOperation-${$.Map.Item.taskId}",
+                },
                 End: true,
               },
             },
