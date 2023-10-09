@@ -55,6 +55,7 @@ export const MyStateMachine: AwsStateMachines = {
     events: [
       {
         eventBridge: {
+          //@ts-ignore
           schedule: "rate(10 minutes)",
         },
       },
