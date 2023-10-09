@@ -52,10 +52,5 @@ export const MyStateMachine: AwsStateMachines = {
         },
       },
     },
-    events: [
-      {
-        schedule: "rate(10 minutes)",
-      },
-    ],
   },
 };
