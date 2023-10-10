@@ -1,7 +1,7 @@
 import { AwsFunction } from "serverless-schema";
 
-const catchException: AwsFunction = {
+const waitForToken: AwsFunction = {
   handler: "src/handlers/waitForToken.handler",
 };
 
-export default catchException;
+export default waitForToken;
