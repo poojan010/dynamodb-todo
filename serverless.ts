@@ -70,6 +70,8 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
       new States()
         .allow()
         .toStartExecution()
+        .toSendTaskSuccess()
+        .toSendTaskFailure()
         .on(...[STATE_MACHINE_ARN])
         .toJSON(),
     ],
