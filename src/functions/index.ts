@@ -8,6 +8,7 @@ import invokeStepFn from "./invokeStepFn";
 import performOperation from "./performOperation";
 import catchException from "./catchException";
 import waitForToken from "./waitForToken";
+import resumeStepFn from "./resumeStepFn";
 import createCSVForDbEntries from "./createCSVForDbEntries";
 
 export const functions = {
@@ -21,5 +22,6 @@ export const functions = {
   performOperation,
   catchException,
   waitForToken,
+  resumeStepFn,
   createCSVForDbEntries,
 };
