@@ -9,8 +9,31 @@ export const MyStateMachine: AwsStateMachines = {
   MyStateMachine: {
     name: stateMachineName,
     definition: {
-      StartAt: "CreateCSVForDbEntries",
+      StartAt: "WaitForToken",
       States: {
+        WaitForToken: {
+          Type: "Task",
+          Next: "CreateCSVForDbEntries",
+          Resource: "arn:aws:states:::lambda:invoke.waitForTaskToken",
+          Parameters: {
+            Payload: {
+              "input.$": "$",
+              "taskToken.$": "$$.Task.Token",
+            },
+            FunctionName: {
+              "Fn::Sub":
+                // eslint-disable-next-line max-len
+                "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-waitForToken",
+            },
+          },
+          Catch: [
+            {
+              ErrorEquals: ["States.ALL"],
+              Next: "CatchExceptionFromWaitForTokenState",
+              ResultPath: "$.error",
+            },
+          ],
+        },
         CreateCSVForDbEntries: {
           Type: "Task",
           Resource: { "Fn::GetAtt": ["createCSVForDbEntries", "Arn"] },
@@ -73,6 +96,15 @@ export const MyStateMachine: AwsStateMachines = {
           Next: "Fail",
         },
         CatchExceptionFromMapState: {
+          Type: "Task",
+          InputPath: "$",
+          Resource: {
+            "Fn::GetAtt": ["catchException", "Arn"],
+          },
+          ResultPath: "$",
+          Next: "Fail",
+        },
+        CatchExceptionFromWaitForTokenState: {
           Type: "Task",
           InputPath: "$",
           Resource: {
