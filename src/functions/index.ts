@@ -6,6 +6,7 @@ import updateItemInTable from "./updateItemInTable";
 import deleteItemFromTable from "./deleteItemFromTable";
 import invokeStepFn from "./invokeStepFn";
 import performOperation from "./performOperation";
+import catchException from "./catchException";
 import createCSVForDbEntries from "./createCSVForDbEntries";
 
 export const functions = {
@@ -17,5 +18,6 @@ export const functions = {
   deleteItemFromTable,
   invokeStepFn,
   performOperation,
+  catchException,
   createCSVForDbEntries,
 };

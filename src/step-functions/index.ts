@@ -15,6 +15,13 @@ export const MyStateMachine: AwsStateMachines = {
           Type: "Task",
           Resource: { "Fn::GetAtt": ["createCSVForDbEntries", "Arn"] },
           Next: "MapData",
+          Catch: [
+            {
+              ErrorEquals: ["States.ALL"],
+              Next: "CatchExceptionFromCreateCSV",
+              ResultPath: "$.error",
+            },
+          ],
         },
         MapData: {
           Type: "Map",
@@ -41,13 +48,57 @@ export const MyStateMachine: AwsStateMachines = {
                 Type: "Task",
                 Resource: { "Fn::GetAtt": ["performOperation", "Arn"] },
                 End: true,
+                Catch: [
+                  {
+                    ErrorEquals: ["States.ALL"],
+                    Next: "CatchExceptionFromMapItemProcessor",
+                    ResultPath: "$.error",
+                  },
+                ],
               },
             },
           },
           Next: "Done",
+          Catch: [
+            {
+              ErrorEquals: ["States.ALL"],
+              Next: "CatchExceptionFromMapState",
+              ResultPath: "$.error",
+            },
+          ],
         },
         Done: {
           Type: "Succeed",
+        },
+        CatchExceptionFromCreateCSV: {
+          Type: "Task",
+          InputPath: "$",
+          Resource: {
+            "Fn::GetAtt": ["catchException", "Arn"],
+          },
+          ResultPath: "$",
+          Next: "Fail",
+        },
+        CatchExceptionFromMapItemProcessor: {
+          Type: "Task",
+          InputPath: "$",
+          Resource: {
+            "Fn::GetAtt": ["catchException", "Arn"],
+          },
+          ResultPath: "$",
+          Next: "Fail",
+        },
+        CatchExceptionFromMapState: {
+          Type: "Task",
+          InputPath: "$",
+          Resource: {
+            "Fn::GetAtt": ["catchException", "Arn"],
+          },
+          ResultPath: "$",
+          Next: "Fail",
+        },
+        Fail: {
+          Type: "Fail",
         },
       },
     },
