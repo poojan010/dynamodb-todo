@@ -48,13 +48,6 @@ export const MyStateMachine: AwsStateMachines = {
                 Type: "Task",
                 Resource: { "Fn::GetAtt": ["performOperation", "Arn"] },
                 End: true,
-                Catch: [
-                  {
-                    ErrorEquals: ["States.ALL"],
-                    Next: "CatchExceptionFromMapItemProcessor",
-                    ResultPath: "$.error",
-                  },
-                ],
               },
             },
           },
@@ -71,15 +64,6 @@ export const MyStateMachine: AwsStateMachines = {
           Type: "Succeed",
         },
         CatchExceptionFromCreateCSV: {
-          Type: "Task",
-          InputPath: "$",
-          Resource: {
-            "Fn::GetAtt": ["catchException", "Arn"],
-          },
-          ResultPath: "$",
-          Next: "Fail",
-        },
-        CatchExceptionFromMapItemProcessor: {
           Type: "Task",
           InputPath: "$",
           Resource: {
