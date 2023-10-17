@@ -12,6 +12,9 @@ const sendItemsToQueue: AwsFunction = {
       },
     },
   ],
+  environment: {
+    QUEUE_URL: "${self:resources.Outputs.QueueURL.Value}",
+  },
 };
 
 export default sendItemsToQueue;
