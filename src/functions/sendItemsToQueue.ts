@@ -9,6 +9,7 @@ const sendItemsToQueue: AwsFunction = {
         bucket: BucketNames.MyS3Bucket,
         event: "s3:ObjectCreated:*",
         rules: [{ prefix: tempEntriesFile }],
+        existing: true,
       },
     },
   ],
