@@ -10,6 +10,9 @@ import catchException from "./catchException";
 import waitForToken from "./waitForToken";
 import resumeStepFn from "./resumeStepFn";
 import createCSVForDbEntries from "./createCSVForDbEntries";
+import uploadToS3 from "./uploadToS3";
+import sendItemsToQueue from "./sendItemsToQueue";
+import receiveFromQueue from "./receiveFromQueue";
 
 export const functions = {
   sortByDate,
@@ -24,4 +27,7 @@ export const functions = {
   waitForToken,
   resumeStepFn,
   createCSVForDbEntries,
+  uploadToS3,
+  sendItemsToQueue,
+  receiveFromQueue,
 };

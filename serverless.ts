@@ -1,4 +1,4 @@
-import { Dynamodb, S3, States } from "iam-floyd";
+import { Dynamodb, S3, Sqs, States } from "iam-floyd";
 import { ServerlessFrameworkConfiguration } from "serverless-schema";
 
 import env from "@lib/env";
@@ -6,6 +6,7 @@ import MyResources from "src/resources";
 import { functions } from "@functions/index";
 import { MyStateMachine, STATE_MACHINE_ARN } from "src/step-functions";
 import { BucketNames, DynamoDBTableNames } from "src/resources/constants";
+import { MyQueueArn } from "src/resources/queues";
 
 const serverlessConfiguration: ServerlessFrameworkConfiguration = {
   service: "dynamodb-todo",
@@ -74,6 +75,13 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
         .toSendTaskFailure()
         .on(...[STATE_MACHINE_ARN])
         .toJSON(),
+      new Sqs()
+        .allow()
+        .toSendMessage()
+        .toReceiveMessage()
+        .toDeleteMessage()
+        .on(MyQueueArn)
+        .toJSON(),
     ],
   },
   functions,
@@ -138,6 +146,12 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
       MyS3BucketResourcesArn: {
         Value: {
           "Fn::Join": ["", [{ "Fn::GetAtt": ["MyS3Bucket", "Arn"] }, "/*"]],
+        },
+      },
+      QueueURL: {
+        Description: "The URL of the queue",
+        Value: {
+          Ref: "MyStandardQueue",
         },
       },
     },

@@ -10,3 +10,7 @@ export const DynamoDBTableNames = {
 };
 
 export const tableEntriesFile = "table_entries.csv";
+
+export const tempEntriesFile = "temp_entries.csv";
+
+export const MYQueueName = `my-standard-queue-${env.STAGE}`;
