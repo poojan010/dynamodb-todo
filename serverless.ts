@@ -148,12 +148,6 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
           "Fn::Join": ["", [{ "Fn::GetAtt": ["MyS3Bucket", "Arn"] }, "/*"]],
         },
       },
-      QueueURL: {
-        Description: "The URL of the queue",
-        Value: {
-          Ref: "MyStandardQueue",
-        },
-      },
     },
   },
 };
