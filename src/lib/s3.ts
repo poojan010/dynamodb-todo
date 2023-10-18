@@ -48,7 +48,7 @@ export const getFileStream = async (
   bucketName: string,
   key: string
 ): Promise<internal.Readable> => {
-  return await s3
+  return s3
     .getObject({
       Bucket: bucketName,
       Key: key,
