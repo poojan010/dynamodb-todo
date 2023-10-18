@@ -6,7 +6,7 @@ import { response } from "@lib/api-gateway";
 // import { readFile } from "node:fs/promises";
 
 import { getFileStream } from "@lib/s3";
-import { extractCSVRecords } from "src/utils/csvHandler";
+// import { extractCSVRecords } from "src/utils/csvHandler";
 import { BucketNames, tempEntriesFile } from "src/resources/constants";
 
 export const handler: APIGatewayProxyHandler = async (
@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandler = async (
     console.log(event);
 
     const data = await getFileStream(BucketNames.MyS3Bucket, tempEntriesFile);
-    const records = await extractCSVRecords(data);
+    // const records = await extractCSVRecords(data);
 
     // const client = new DynamoDBClient({});
     // const docClient = DynamoDBDocumentClient.from(client);
@@ -36,7 +36,7 @@ export const handler: APIGatewayProxyHandler = async (
 
     return response(200, {
       message: "Succcess",
-      records,
+      data,
     });
   } catch (error) {
     return response(400, {
