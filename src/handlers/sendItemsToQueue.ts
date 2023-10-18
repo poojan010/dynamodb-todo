@@ -1,13 +1,27 @@
 import { SQS } from "aws-sdk";
 
 import { getFileStream } from "@lib/s3";
-import { extractCSVRecords } from "src/utils/csvHandler";
 import { BucketNames, tempEntriesFile } from "src/resources/constants";
+
+const csv = require("csv-parser");
 
 export const handler = async (): Promise<any> => {
   try {
-    const data = await getFileStream(BucketNames.MyS3Bucket, tempEntriesFile);
-    const records = await extractCSVRecords(data);
+    const s3Stream = await getFileStream(
+      BucketNames.MyS3Bucket,
+      tempEntriesFile
+    );
+
+    const records = await new Promise((resolve, reject) => {
+      const objects = [];
+      s3Stream
+        .pipe(csv())
+        .on("data", (data) => objects.push(data))
+        .on("end", () => resolve(objects))
+        .on("error", (error) => {
+          reject(error);
+        });
+    });
 
     const sqs = new SQS();
 

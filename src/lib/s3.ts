@@ -1,6 +1,5 @@
 import { S3 } from "aws-sdk";
 import { GetObjectOutput } from "aws-sdk/clients/s3";
-import * as internal from "stream";
 
 const s3 = new S3({
   apiVersion: "latest",
@@ -44,10 +43,7 @@ export const getFile = async (
     .promise();
 };
 
-export const getFileStream = async (
-  bucketName: string,
-  key: string
-): Promise<internal.Readable> => {
+export const getFileStream = async (bucketName: string, key: string) => {
   return s3
     .getObject({
       Bucket: bucketName,
