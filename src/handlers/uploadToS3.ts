@@ -32,7 +32,6 @@ export const handler: APIGatewayProxyHandler = async (
 
     return response(200, {
       message: "Succcess",
-      bufferData,
     });
   } catch (error) {
     return response(400, {
