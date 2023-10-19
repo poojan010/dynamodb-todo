@@ -1,4 +1,4 @@
-import { Dynamodb, S3, Sqs, States } from "iam-floyd";
+import { Dynamodb, S3, Sns, Sqs, States } from "iam-floyd";
 import { ServerlessFrameworkConfiguration } from "serverless-schema";
 
 import env from "@lib/env";
@@ -7,6 +7,7 @@ import { functions } from "@functions/index";
 import { MyStateMachine, STATE_MACHINE_ARN } from "src/step-functions";
 import { BucketNames, DynamoDBTableNames } from "src/resources/constants";
 import { MyQueueArn } from "src/resources/queues";
+import { MyTopicArn } from "src/resources/SnsTopic";
 
 const serverlessConfiguration: ServerlessFrameworkConfiguration = {
   service: "dynamodb-todo",
@@ -82,6 +83,7 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
         .toDeleteMessage()
         .on(MyQueueArn)
         .toJSON(),
+      new Sns().allow().toPublish().toSubscribe().on(MyTopicArn).toJSON(),
     ],
   },
   functions,
