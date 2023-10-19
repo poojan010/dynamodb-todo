@@ -49,7 +49,7 @@ export const handler = async (): Promise<any> => {
           Message: JSON.stringify(record),
         })
         .promise();
-      console.log(`Message successfully sent to my standard queue`);
+      console.log(`Message successfully sent to my sns topic`);
     }
   } catch (err) {
     console.error("Error in Sending Items to Queue", err);
