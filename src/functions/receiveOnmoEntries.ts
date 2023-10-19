@@ -8,7 +8,7 @@ const receiveOnmoEntries: AwsFunction = {
       sns: {
         arn: MyTopicArn,
         filterPolicy: {
-          customer: "onmo",
+          customer: ["onmo"],
         },
       },
     },
