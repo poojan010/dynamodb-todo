@@ -12,7 +12,6 @@ import resumeStepFn from "./resumeStepFn";
 import createCSVForDbEntries from "./createCSVForDbEntries";
 import uploadToS3 from "./uploadToS3";
 import sendItemsToQueue from "./sendItemsToQueue";
-import sendItemsToSns from "./sendItemsToSns";
 import receiveFromQueue from "./receiveFromQueue";
 import receiveOnmoEntries from "./receiveOnmoEntries";
 import receiveWickesEntries from "./receiveWickesEntries";
@@ -32,7 +31,6 @@ export const functions = {
   createCSVForDbEntries,
   uploadToS3,
   sendItemsToQueue,
-  sendItemsToSns,
   receiveFromQueue,
   receiveWickesEntries,
   receiveOnmoEntries,

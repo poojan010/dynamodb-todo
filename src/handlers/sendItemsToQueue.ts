@@ -1,7 +1,8 @@
-import { SQS } from "aws-sdk";
+import { SNS, SQS } from "aws-sdk";
 
 import { getFileStream } from "@lib/s3";
 import { BucketNames, tempEntriesFile } from "src/resources/constants";
+import { MyTopicArn } from "src/resources/SnsTopic";
 
 const csv = require("csv-parser");
 
@@ -24,6 +25,7 @@ export const handler = async (): Promise<any> => {
     });
 
     const sqs = new SQS();
+    const sns = new SNS();
 
     //@ts-ignore
     for (const record of records) {
@@ -31,6 +33,20 @@ export const handler = async (): Promise<any> => {
         .sendMessage({
           QueueUrl: process.env.QUEUE_URL,
           MessageBody: JSON.stringify(record),
+        })
+        .promise();
+      console.log(`Message successfully sent to my standard queue`);
+    }
+
+    //@ts-ignore
+    for (const record of records) {
+      await sns
+        .publish({
+          TopicArn: MyTopicArn,
+          MessageAttributes: {
+            customer: record.projectID,
+          },
+          Message: JSON.stringify(record),
         })
         .promise();
       console.log(`Message successfully sent to my standard queue`);
