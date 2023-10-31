@@ -54,6 +54,7 @@ export const handler = async (): Promise<any> => {
         .sendMessage({
           QueueUrl: process.env.FIFO_QUEUE_URL,
           MessageBody: JSON.stringify(record),
+          MessageGroupId: "my123fifo456queue",
         })
         .promise()
         .then((response) => {
@@ -71,7 +72,10 @@ export const handler = async (): Promise<any> => {
         .publish({
           TopicArn: MyTopicArn,
           MessageAttributes: {
-            customer: record.projectID,
+            customer: {
+              DataType: "String",
+              StringValue: record.projectID,
+            },
           },
           Message: JSON.stringify(record),
         })
