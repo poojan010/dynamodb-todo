@@ -54,7 +54,8 @@ export const handler = async (): Promise<any> => {
         .sendMessage({
           QueueUrl: process.env.FIFO_QUEUE_URL,
           MessageBody: JSON.stringify(record),
-          MessageGroupId: "my123fifo456queue",
+          MessageGroupId: record.projectID,
+          MessageDeduplicationId: record.taskId,
         })
         .promise()
         .then((response) => {
