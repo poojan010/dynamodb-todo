@@ -14,5 +14,6 @@ export const tableEntriesFile = "table_entries.csv";
 export const tempEntriesFile = "temp_entries.csv";
 
 export const MYQueueName = `my-standard-queue-${env.STAGE}`;
+export const MYFifoQueueName = `my-fifo-queue-${env.STAGE}.fifo`;
 
 export const MyTopicName = `my-custom-topic-${env.STAGE}`;

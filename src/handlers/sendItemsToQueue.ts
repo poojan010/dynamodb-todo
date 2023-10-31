@@ -29,17 +29,44 @@ export const handler = async (): Promise<any> => {
 
     //@ts-ignore
     for (const record of records) {
+      console.log("SQS message ", record);
       await sqs
         .sendMessage({
           QueueUrl: process.env.QUEUE_URL,
           MessageBody: JSON.stringify(record),
         })
-        .promise();
-      console.log(`Message successfully sent to my standard queue`);
+        .promise()
+        .then((response) => {
+          console.log(
+            `Message successfully sent to my standard queue`,
+            response
+          );
+        })
+        .catch((error) => {
+          console.error("Error in Sending Items to SQS", error);
+        });
     }
 
     //@ts-ignore
     for (const record of records) {
+      console.log("SQS message for fifo", record);
+      await sqs
+        .sendMessage({
+          QueueUrl: process.env.FIFO_QUEUE_URL,
+          MessageBody: JSON.stringify(record),
+        })
+        .promise()
+        .then((response) => {
+          console.log(`Message successfully sent to my fifo queue`, response);
+        })
+        .catch((error) => {
+          console.error("Error in Sending Items to SQS fifo", error);
+        });
+    }
+
+    //@ts-ignore
+    for (const record of records) {
+      console.log("SNS message ", record);
       await sns
         .publish({
           TopicArn: MyTopicArn,
@@ -48,10 +75,15 @@ export const handler = async (): Promise<any> => {
           },
           Message: JSON.stringify(record),
         })
-        .promise();
-      console.log(`Message successfully sent to my sns topic`);
+        .promise()
+        .then((response) => {
+          console.log(`Message successfully sent to my sns topic`, response);
+        })
+        .catch((error) => {
+          console.error("Error in Sending Items to SNS", error);
+        });
     }
   } catch (err) {
-    console.error("Error in Sending Items to Queue", err);
+    console.error("Error sendItemsToQueue Lamda function", err);
   }
 };

@@ -13,6 +13,7 @@ import createCSVForDbEntries from "./createCSVForDbEntries";
 import uploadToS3 from "./uploadToS3";
 import sendItemsToQueue from "./sendItemsToQueue";
 import receiveFromQueue from "./receiveFromQueue";
+import receiveFromFifoQueue from "./receiveFromFifoQueue";
 import receiveOnmoEntries from "./receiveOnmoEntries";
 import receiveWickesEntries from "./receiveWickesEntries";
 
@@ -32,6 +33,7 @@ export const functions = {
   uploadToS3,
   sendItemsToQueue,
   receiveFromQueue,
+  receiveFromFifoQueue,
   receiveWickesEntries,
   receiveOnmoEntries,
 };

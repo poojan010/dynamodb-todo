@@ -15,6 +15,7 @@ const sendItemsToQueue: AwsFunction = {
   ],
   environment: {
     QUEUE_URL: "${self:resources.Outputs.QueueURL.Value}",
+    FIFO_QUEUE_URL: "${self:resources.Outputs.FifoQueueURL.Value}",
   },
 };
 

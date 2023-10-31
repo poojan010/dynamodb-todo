@@ -6,7 +6,7 @@ import MyResources from "src/resources";
 import { functions } from "@functions/index";
 import { MyStateMachine, STATE_MACHINE_ARN } from "src/step-functions";
 import { BucketNames, DynamoDBTableNames } from "src/resources/constants";
-import { MyQueueArn } from "src/resources/queues";
+import { MyFifoQueueArn, MyQueueArn } from "src/resources/queues";
 import { MyTopicArn } from "src/resources/SnsTopic";
 
 const serverlessConfiguration: ServerlessFrameworkConfiguration = {
@@ -81,7 +81,7 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
         .toSendMessage()
         .toReceiveMessage()
         .toDeleteMessage()
-        .on(MyQueueArn)
+        .on(...[MyQueueArn, MyFifoQueueArn])
         .toJSON(),
       new Sns().allow().toPublish().toSubscribe().on(MyTopicArn).toJSON(),
     ],
@@ -154,6 +154,12 @@ const serverlessConfiguration: ServerlessFrameworkConfiguration = {
         Description: "The URL of the queue",
         Value: {
           Ref: "MyStandardQueue",
+        },
+      },
+      FifoQueueURL: {
+        Description: "The URL of the fifo queue",
+        Value: {
+          Ref: "MyFifoQueue",
         },
       },
     },
