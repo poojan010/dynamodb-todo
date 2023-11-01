@@ -5,5 +5,5 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<any> => {
   console.log("Recived data from fifo queue", event);
 
-  return event;
+  throw new Error("Testing Error");
 };
