@@ -11,6 +11,9 @@ const receiveFromFifoQueue: AwsFunction = {
       },
     },
   ],
+  environment: {
+    FIFO_QUEUE_URL: "${self:resources.Outputs.FifoQueueURL.Value}",
+  },
 };
 
 export default receiveFromFifoQueue;
